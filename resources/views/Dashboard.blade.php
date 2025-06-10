@@ -28,7 +28,7 @@
                 <span class="text-gray-700 font-semibold group-hover:text-gray-900 text-sm sm:text-base">CUTI ONBOARDING</span>
             </a>
 
-            <a href="#" class="bg-white border border-gray-200 rounded-lg shadow-md p-3 sm:p-4 flex items-center space-x-3 sm:space-x-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-decoration-none group">
+            <a href="/request-shifting" class="bg-white border border-gray-200 rounded-lg shadow-md p-3 sm:p-4 flex items-center space-x-3 sm:space-x-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-decoration-none group">
                 <div class="flex-shrink-0">
                     <img src="{{ asset('img/iconRequestShifting.png') }}" alt="Request Shifting" class="w-5 h-5 sm:w-6 sm:h-6">
                 </div>
