@@ -19,7 +19,7 @@
                     NIK
                 </label>
                 <input 
-                    type="text" 
+                    type="number" 
                     id="nik" 
                     name="nik"
                     class="w-full px-2 py-3 bg-white bg-opacity-90 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200"
@@ -43,7 +43,7 @@
                     Tanggal
                 </label>
                 <input 
-                    type="text"
+                    type="date"
                     id="tanggal"
                     name="tanggal"
                     class="w-full px-2 py-3 bg-white bg-opacity-90 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200"
