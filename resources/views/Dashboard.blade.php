@@ -14,7 +14,7 @@
         </div>
 
         <div class="flex flex-col space-y-4 sm:space-y-6 max-w-xs sm:max-w-md mx-auto">
-            <a href="#" class="bg-white border border-gray-200 rounded-lg shadow-md p-3 sm:p-4 flex items-center space-x-3 sm:space-x-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-decoration-none group">
+            <a href="{{ route('employee.onboarding') }}" class="bg-white border border-gray-200 rounded-lg shadow-md p-3 sm:p-4 flex items-center space-x-3 sm:space-x-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-decoration-none group">
                 <div class="flex-shrink-0">
                     <img src="{{ asset('img/iconKaryawanOnboarding.png') }}" alt="Karyawan Onboarding" class="w-5 h-5 sm:w-6 sm:h-6">
                 </div>

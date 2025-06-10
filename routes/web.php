@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeOnboardingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,3 +14,5 @@ Route::get('/request-shifting', function () {
 Route::get('/report', function () {
     return view('Report');
 });
+
+Route::get('/employee-onboarding', [EmployeeOnboardingController::class, 'index'])->name('employee.onboarding');
