@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Report - Bank BTPN Automatic Shifting')
+@section('title', 'Request Shifting - Bank BTPN Automatic Shifting')
 
 @section('content')
 <main class="min-h-screen relative overflow-hidden">
@@ -15,25 +15,49 @@
     <div class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 sm:px-6">
         <div class="w-full max-w-sm space-y-6 bg-black/40 rounded-lg p-6">
             <div class="space-y-2">
-                <label for="report" class="block text-white text-sm font-semibold tracking-wide">
-                    REPORT
+                <label for="nik" class="block text-white text-sm font-semibold tracking-wide">
+                    NIK
                 </label>
                 <input 
                     type="text" 
-                    id="report" 
-                    name="report"
+                    id="nik" 
+                    name="nik"
                     class="w-full px-2 py-3 bg-white bg-opacity-90 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200"
                 >
             </div>
 
             <div class="space-y-2">
-                <label for="periode" class="block text-white text-sm font-semibold tracking-wide">
-                    PERIODE
+                <label for="nama" class="block text-white text-sm font-semibold tracking-wide">
+                    NAMA
+                </label>
+                <input
+                    type="text"
+                    id="nama"
+                    name="nama"
+                    class="w-full px-2 py-3 bg-white bg-opacity-90 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200"
+                >
+            </div>
+
+            <div class="space-y-2">
+                <label for="tanggal" class="block text-white text-sm font-semibold tracking-wide">
+                    Tanggal
                 </label>
                 <input 
-                    type="text" 
-                    id="periode" 
-                    name="periode"
+                    type="text"
+                    id="tanggal"
+                    name="tanggal"
+                    class="w-full px-2 py-3 bg-white bg-opacity-90 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200"
+                >
+            </div>
+
+            <div class="space-y-2">
+                <label for="request" class="block text-white text-sm font-semibold tracking-wide">
+                    Request
+                </label>
+                <input
+                    type="text"
+                    id="request"
+                    name="request"
                     class="w-full px-2 py-3 bg-white bg-opacity-90 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200"
                 >
             </div>
@@ -43,7 +67,7 @@
                     type="button"
                     class="w-full py-3 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-transparent"
                 >
-                    Download
+                    Submit
                 </button>
             </div>
         </div>
