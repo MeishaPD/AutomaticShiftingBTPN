@@ -3,7 +3,18 @@
 @section('title', 'Employee Onboarding - Bank BTPN Automatic Shifting')
 
 @section('content')
-    @include('partials.navbar')
+    @include('partials.navbar', [
+        'actions' => [
+            [
+                'label' => 'INPUT',
+                'route' => route('employee.create')
+            ],
+            [
+                'label' => 'DELETE',
+                'route' => route('employee.delete')
+            ]
+        ]
+    ])
 
     <main class="flex-grow py-6 sm:py-8 flex items-center justify-center">
         <div class="container mx-auto px-4 sm:px-6">
@@ -20,6 +31,12 @@
                         </select>
                     </div>
                 </div>
+
+                @if(session('success'))
+                    <div class="mb-4 bg-green-50 border border-green-200 text-green-600 px-4 py-3 rounded">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
                 <div class="overflow-x-auto">
                     <table class="min-w-full border-collapse border border-gray-300">
