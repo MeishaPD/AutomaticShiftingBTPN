@@ -32,6 +32,10 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'email'    => ['required', 'email'],
             'password' => ['required'],
+        ], [
+            'email.required'    => 'Email harus diisi',
+            'email.email'       => 'Format email tidak valid',
+            'password.required' => 'Password harus diisi',
         ]);
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
@@ -41,7 +45,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Email atau password yang Anda masukkan tidak sesuai.',
         ])->onlyInput('email');
     }
 
@@ -52,6 +56,17 @@ class AuthController extends Controller
             'nik'      => ['required', 'string', 'size:16', 'unique:users'],
             'password' => ['required', 'confirmed', Password::defaults()],
             'role'     => ['required', 'in:employee,admin'],
+        ], [
+            'email.required'     => 'Email harus diisi',
+            'email.email'        => 'Format email tidak valid',
+            'email.unique'       => 'Email sudah terdaftar',
+            'nik.required'       => 'NIK harus diisi',
+            'nik.size'           => 'NIK harus terdiri dari 16 digit',
+            'nik.unique'         => 'NIK sudah terdaftar',
+            'password.required'  => 'Password harus diisi',
+            'password.confirmed' => 'Konfirmasi password tidak sesuai',
+            'role.required'      => 'Role harus dipilih',
+            'role.in'            => 'Role yang dipilih tidak valid',
         ]);
 
         $user = User::create([
@@ -65,7 +80,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard')->with('success', 'Registrasi Berhasil');
+        return redirect()->route('dashboard')->with('success', 'Registrasi berhasil!');
     }
 
     public function logout(Request $request)
