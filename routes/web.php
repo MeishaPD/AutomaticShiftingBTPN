@@ -2,13 +2,13 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeOnboardingController;
+use App\Http\Controllers\RequestShiftingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/request-shifting', function () {
-    return view('RequestShifting');
-});
+Route::get('/request-shifting', [RequestShiftingController::class, 'index'])->name('request-shifting.index');
+Route::post('/request-shifting', [RequestShiftingController::class, 'store'])->name('request-shifting.store');
 
 Route::get('/report', function () {
     return view('Report');
