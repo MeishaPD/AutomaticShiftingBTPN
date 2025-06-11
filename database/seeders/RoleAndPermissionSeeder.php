@@ -21,7 +21,7 @@ class RoleAndPermissionSeeder extends Seeder
             'view reports',
             'download reports',
             'manage employee onboarding',
-            'delete employees',
+            'delete employee shifts',
         ];
 
         foreach ($permissions as $permission) {
@@ -41,7 +41,7 @@ class RoleAndPermissionSeeder extends Seeder
             'view reports',
             'download reports',
             'manage employee onboarding',
-            'delete employees',
+            'delete employee shifts',
         ]);
 
         $adminUser = User::firstOrCreate(
