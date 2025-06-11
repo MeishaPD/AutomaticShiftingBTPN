@@ -44,7 +44,7 @@ class EmployeeShiftSeeder extends Seeder
 
                 // Determine shift type based on current counts
                 $shiftType = null;
-                if ($wfoCount < 2 && $wfhCount < 3) {
+                if ($wfoCount < 3 && $wfhCount < 2) {
                     $shiftType = rand(0, 1) ? ShiftType::WFO : ShiftType::WFH;
                 } elseif ($wfoCount < 2) {
                     $shiftType = ShiftType::WFO;

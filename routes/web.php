@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeOnboardingController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('Dashboard');
-})->name('dashboard');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/request-shifting', function () {
     return view('RequestShifting');
