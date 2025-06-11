@@ -8,10 +8,28 @@
         </a>
         <div class="flex items-center space-x-2 sm:space-x-3">
             @foreach($actions as $action)
-                <a href="{{ $action['route'] ?? '#' }}"
-                   class="bg-[#2C2C2C] hover:bg-slate-600 text-white px-3 sm:px-6 py-2 rounded-lg font-medium transition-colors duration-200 text-xs sm:text-sm">
-                    {{ $action['label'] }}
-                </a>
+                @php
+                    $method = $action['method'] ?? 'GET';
+                    $route = $action['route'] ?? '#';
+                    $label = $action['label'];
+                    $class = 'bg-[#2C2C2C] hover:bg-slate-600 text-white px-3 sm:px-6 py-2 rounded-lg font-medium transition-colors duration-200 text-xs sm:text-sm';
+                @endphp
+
+                @if($method === 'GET')
+                    <a href="{{ $route }}" class="{{ $class }}">
+                        {{ $label }}
+                    </a>
+                @else
+                    <form action="{{ $route }}" method="POST" class="inline">
+                        @csrf
+                        @if($method !== 'POST')
+                            @method($method)
+                        @endif
+                        <button type="submit" class="{{ $class }}">
+                            {{ $label }}
+                        </button>
+                    </form>
+                @endif
             @endforeach
         </div>
     </div>
