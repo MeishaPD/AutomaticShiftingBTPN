@@ -6,10 +6,6 @@
     @include('partials.navbar', [
         'actions' => [
             [
-                'label' => 'INPUT',
-                'route' => route('employee.create')
-            ],
-            [
                 'label' => 'DELETE',
                 'route' => route('employee.delete')
             ]
