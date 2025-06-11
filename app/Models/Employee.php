@@ -5,6 +5,7 @@ use App\Enums\Gender;
 use App\Enums\Location;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Employee extends Model
 {
@@ -24,4 +25,9 @@ class Employee extends Model
         'location'      => Location::class,
         'is_onboarding' => 'boolean',
     ];
+
+    public function shifts(): HasMany
+    {
+        return $this->hasMany(EmployeeShift::class);
+    }
 }

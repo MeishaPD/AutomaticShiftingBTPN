@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Remove from Onboarding - Bank BTPN Automatic Shifting')
+@section('title', 'Delete Shift - Bank BTPN Automatic Shifting')
 
 @section('content')
     <main class="min-h-screen relative overflow-hidden">
@@ -14,7 +14,7 @@
 
         <div class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 sm:px-6">
             <div class="w-full max-w-lg space-y-6 bg-black/40 rounded-lg p-6">
-                <h2 class="text-xl font-semibold text-white text-center">DELETE DATA KARYAWAN</h2>
+                <h2 class="text-xl font-semibold text-white text-center">DELETE SHIFT KARYAWAN</h2>
 
                 @if ($errors->any())
                     <div class="bg-red-500/90 text-white px-4 py-3 rounded-lg">
@@ -35,6 +35,15 @@
                         <input type="text" name="nik" id="nik" value="{{ old('nik') }}"
                             class="w-full px-2 py-3 bg-white bg-opacity-90 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200"
                             placeholder="Enter 16-digit NIK" maxlength="16" pattern="\d{16}" required>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="shift_date" class="block text-white text-sm font-semibold tracking-wide">
+                            Tanggal Shift
+                        </label>
+                        <input type="date" name="shift_date" id="shift_date" value="{{ old('shift_date', now()->format('Y-m-d')) }}"
+                            class="w-full px-2 py-3 bg-white bg-opacity-90 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200"
+                            required>
                     </div>
 
                     <div class="pt-2 flex gap-3">
