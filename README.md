@@ -1,61 +1,143 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Bank BTPN Automatic Shifting
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+An automated employee shift management system for Bank BTPN.
 
-## About Laravel
+## System Requirements
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Before you begin, ensure your computer has the following installed:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- PHP >= 8.2
+- Composer
+- MySQL >= 8.0
+- Node.js >= 18.x (for asset compilation)
+- Git
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Installation Steps
 
-## Learning Laravel
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/joki-kim/BankBTPNAutomaticShifting.git
+   cd AutomaticShiftingBTPN
+   ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. **Install PHP Dependencies**
+   ```bash
+   composer install
+   ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+3. **Copy Environment File**
+   ```bash
+   cp .env.example .env
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4. **Generate Application Key**
+   ```bash
+   php artisan key:generate
+   ```
 
-## Laravel Sponsors
+5. **Configure Database**
+   - Open `.env` file
+   - Adjust database configuration:
+     ```
+     DB_CONNECTION=mysql
+     DB_HOST=127.0.0.1
+     DB_PORT=3306
+     DB_DATABASE=autoshift
+     DB_USERNAME=root
+     DB_PASSWORD=
+     ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+6. **Create Database**
+   ```bash
+   mysql -u root -p
+   CREATE DATABASE autoshift;
+   exit;
+   ```
 
-### Premium Partners
+7. **Run Database Migrations**
+   ```bash
+   php artisan migrate
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+8. **Run Seeders**
+   ```bash
+   php artisan db:seed
+   ```
 
-## Contributing
+9. **Install Node.js Dependencies**
+   ```bash
+   npm install
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+10. **Run Development Server**
+   ```bash
+   npm run dev
+   ```
 
-## Code of Conduct
+11. **Start Development Server**
+    ```bash
+    php artisan serve
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+12. **Access Application**
+    - Open browser and navigate to `http://localhost:8000`
+    - Login with default credentials:
+      - Admin:
+        - Email: admin@btpn.com
+        - Password: password
+        - NIK: 1234567890123456
+      - Employee:
+        - Email: employee@btpn.com
+        - Password: password
+        - NIK: 6543210987654321
 
-## Security Vulnerabilities
+## Key Features
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Automated employee shift management
+- New employee onboarding
+- Shift request system
+- Shift reporting
+- Role-based access control (Admin & Employee)
 
-## License
+## Roles and Permissions
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The system uses role-based access control (RBAC) with the following roles and permissions:
+
+### Available Permissions
+- `view dashboard` - Access to the main dashboard
+- `request shifting` - Ability to request shift changes
+- `view reports` - View shift reports
+- `download reports` - Download shift reports
+- `manage employee onboarding` - Manage employee onboarding process
+- `delete employee shifts` - Delete employee shifts
+
+### Role Permissions Matrix
+
+| Permission | Admin | Employee |
+|------------|-------|----------|
+| view dashboard | ✓ | ✓ |
+| request shifting | ✓ | ✓ |
+| view reports | ✓ | ✗ |
+| download reports | ✓ | ✗ |
+| manage employee onboarding | ✓ | ✗ |
+| delete employee shifts | ✓ | ✗ |
+
+## Troubleshooting
+
+1. **Permission Issues**
+   ```bash
+   chmod -R 775 storage bootstrap/cache
+   ```
+
+2. **Composer Dependencies Issues**
+   ```bash
+   composer clear-cache
+   composer install --no-cache
+   ```
+
+3. **Node Modules Issues**
+   ```bash
+   rm -rf node_modules
+   npm cache clean --force
+   npm install
+   ```
