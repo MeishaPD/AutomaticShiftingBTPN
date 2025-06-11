@@ -32,7 +32,6 @@ class EmployeeFactory extends Factory
             'nik'           => $nik,
             'name'          => fake()->name,
             'gender'        => fake()->randomElement(Gender::values()),
-            'religion'      => fake()->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu']),
             'location'      => fake()->randomElement(Location::values()),
             'is_onboarding' => $isOnboarding,
         ];
