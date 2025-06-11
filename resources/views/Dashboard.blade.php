@@ -3,7 +3,15 @@
 @section('title', 'Dashboard - Bank BTPN Automatic Shifting')
 
 @section('content')
-    @include('partials.navbar')
+        @include('partials.navbar', [
+        'actions' => [
+            [
+                'label' => 'LOGOUT',
+                'route' => route('logout'),
+                'method' => 'POST'
+            ]
+        ]
+    ])
 
 <main class="flex-grow py-6 sm:py-8">
     <div class="container mx-auto px-4 sm:px-6">
