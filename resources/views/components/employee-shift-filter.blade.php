@@ -17,7 +17,7 @@
                        id="search"
                        value="{{ $search }}"
                        placeholder="Cari NIK atau nama..."
-                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1">
             </div>
 
             <div>
@@ -26,7 +26,7 @@
                        name="start_date"
                        id="start_date"
                        value="{{ $startDate }}"
-                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1">
             </div>
 
             <div>
@@ -35,14 +35,14 @@
                        name="end_date"
                        id="end_date"
                        value="{{ $endDate }}"
-                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1">
             </div>
 
             <div>
                 <label for="shift_type" class="block text-sm font-medium text-gray-700 mb-1">Tipe Shift</label>
                 <select name="shift_type"
                         id="shift_type"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+                        class="w-full px-3 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-1">
                     <option value="">Semua</option>
                     <option value="WFO" {{ $shiftType === 'WFO' ? 'selected' : '' }}>WFO</option>
                     <option value="WFH" {{ $shiftType === 'WFH' ? 'selected' : '' }}>WFH</option>
@@ -55,7 +55,7 @@
                 <label for="per_page" class="text-sm text-gray-600">Show:</label>
                 <select id="per_page"
                         name="per_page"
-                        class="border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-1 focus:ring-green-500">
+                        class="min-w-[240px] bg-white border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-1">
                     @foreach($perPageOptions as $option)
                         <option value="{{ $option }}" {{ $perPage == $option ? 'selected' : '' }}>
                             {{ $option }} entries
@@ -65,7 +65,7 @@
             </div>
 
             <button type="submit"
-                    class="px-4 py-2 bg-green-500 text-white rounded-md text-sm font-medium hover:bg-green-600 focus:outline-none focus:ring-1 focus:ring-green-500">
+                    class="px-4 py-2 bg-green-500 text-white rounded-md text-sm font-medium hover:bg-green-600 focus:outline-none focus:ring-1">
                 Filter
             </button>
         </div>

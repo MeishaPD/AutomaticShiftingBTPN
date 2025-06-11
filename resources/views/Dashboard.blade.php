@@ -6,7 +6,7 @@
         @include('partials.navbar', [
         'actions' => [
             [
-                'label' => 'LOGOUT',
+                'label' => 'KELUAR',
                 'route' => route('logout'),
                 'method' => 'POST'
             ]
@@ -43,12 +43,22 @@
                 <span class="text-gray-700 font-semibold group-hover:text-gray-900 text-sm sm:text-base">REQUEST SHIFTING</span>
             </a>
 
-            <a href="/report" class="bg-white border border-gray-200 rounded-lg shadow-md p-3 sm:p-4 flex items-center space-x-3 sm:space-x-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-decoration-none group">
-                <div class="flex-shrink-0">
-                    <img src="{{ asset('img/iconReport.png') }}" alt="Report" class="w-5 h-5 sm:w-6 sm:h-6">
+            @if(auth()->user()->isAdmin())
+                <a href="/report" class="bg-white border border-gray-200 rounded-lg shadow-md p-3 sm:p-4 flex items-center space-x-3 sm:space-x-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-decoration-none group">
+                    <div class="flex-shrink-0">
+                        <img src="{{ asset('img/iconReport.png') }}" alt="Report" class="w-5 h-5 sm:w-6 sm:h-6">
+                    </div>
+                    <span class="text-gray-700 font-semibold group-hover:text-gray-900 text-sm sm:text-base">REPORT</span>
+                </a>
+            @else
+                <div class="bg-gray-100 border border-gray-200 rounded-lg shadow-md p-3 sm:p-4 flex items-center space-x-3 sm:space-x-4 cursor-not-allowed opacity-75">
+                    <div class="flex-shrink-0">
+                        <img src="{{ asset('img/iconReport.png') }}" alt="Report" class="w-5 h-5 sm:w-6 sm:h-6 grayscale">
+                    </div>
+                    <span class="text-gray-500 font-semibold text-sm sm:text-base">REPORT</span>
+                    </div>
                 </div>
-                <span class="text-gray-700 font-semibold group-hover:text-gray-900 text-sm sm:text-base">REPORT</span>
-            </a>
+            @endif
         </div>
     </div>
 </main>
