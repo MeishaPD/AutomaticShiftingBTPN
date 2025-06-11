@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\EmployeeShift;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -89,11 +90,15 @@ class EmployeeOnboardingController extends Controller
     public function remove(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nik' => 'required|string|size:16|exists:employees,nik',
+            'nik'        => 'required|string|size:16|exists:employees,nik',
+            'shift_date' => 'required|date|after_or_equal:today',
         ], [
-            'nik.required' => 'NIK wajib diisi',
-            'nik.size'     => 'NIK harus tepat 16 digit',
-            'nik.exists'   => 'Karyawan dengan NIK tersebut tidak ditemukan',
+            'nik.required'              => 'NIK wajib diisi',
+            'nik.size'                  => 'NIK harus tepat 16 digit',
+            'nik.exists'                => 'Karyawan dengan NIK tersebut tidak ditemukan',
+            'shift_date.required'       => 'Tanggal shift wajib diisi',
+            'shift_date.date'           => 'Format tanggal tidak valid',
+            'shift_date.after_or_equal' => 'Tanggal shift harus hari ini atau setelahnya',
         ]);
 
         if ($validator->fails()) {
@@ -110,9 +115,17 @@ class EmployeeOnboardingController extends Controller
                 ->withInput();
         }
 
-        $employee->update(['is_onboarding' => false]);
+        $deleted = EmployeeShift::where('employee_id', $employee->id)
+            ->where('shift_date', $request->shift_date)
+            ->delete();
+
+        if (! $deleted) {
+            return redirect()->back()
+                ->withErrors(['shift_date' => 'Tidak ada shift yang ditemukan untuk tanggal tersebut'])
+                ->withInput();
+        }
 
         return redirect()->route('employee.onboarding')
-            ->with('success', 'Karyawan berhasil dihapus dari onboarding');
+            ->with('success', 'Shift karyawan berhasil dihapus');
     }
 }
