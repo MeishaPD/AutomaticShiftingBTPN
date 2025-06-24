@@ -5,6 +5,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeOnboardingController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RequestShiftingController;
+use App\Http\Controllers\ShiftHistoryController;
+use App\Http\Controllers\ShiftReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -33,6 +35,11 @@ Route::middleware('auth')->group(function () {
         Route::prefix('employee-onboarding')->group(function () {
             Route::get('/delete', [EmployeeOnboardingController::class, 'delete'])->name('employee.delete');
             Route::post('/remove', [EmployeeOnboardingController::class, 'remove'])->name('employee.remove');
+        });
+
+        Route::prefix('shift')->group(function () {
+            Route::get('/report', [ShiftReportController::class, 'index'])->name('shift-report.index');
+            Route::get('/history', [ShiftHistoryController::class, 'index'])->name('shift-history.index');
         });
     });
 
