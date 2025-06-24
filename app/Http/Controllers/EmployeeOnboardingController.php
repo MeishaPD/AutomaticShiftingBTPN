@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Enums\ShiftStatus;
 use App\Models\Employee;
 use App\Models\EmployeeShift;
 use Carbon\Carbon;
@@ -24,6 +25,7 @@ class EmployeeOnboardingController extends Controller
         $query = Employee::where('is_onboarding', true)
             ->with(['shifts' => function ($query) use ($startDate, $endDate, $shiftType) {
                 $query->whereBetween('shift_date', [$startDate, $endDate])
+                    ->where('status', ShiftStatus::APROVED)
                     ->orderBy('shift_date', 'asc');
                 if ($shiftType) {
                     $query->where('type', $shiftType);

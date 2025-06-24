@@ -1,6 +1,7 @@
 <?php
 namespace Database\Seeders;
 
+use App\Enums\ShiftStatus;
 use App\Enums\ShiftType;
 use App\Models\Employee;
 use App\Models\EmployeeShift;
@@ -58,6 +59,7 @@ class EmployeeShiftSeeder extends Seeder
                     'employee_id' => $employee->id,
                     'type'        => $shiftType,
                     'shift_date'  => $date,
+                    'status'      => rand(0, 3) === 0 ? ShiftStatus::REJECTED : ShiftStatus::APROVED,
                 ]);
 
                 if ($shiftType === ShiftType::WFO) {
