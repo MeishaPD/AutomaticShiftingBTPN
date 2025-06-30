@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('leave-onboarding')->group(function () {
             Route::get('/', [EmployeeLeaveController::class, 'create'])->name('employee.leave');
+            Route::post('/create', [EmployeeLeaveController::class, 'store'])->name('employee.leave.store');
         });
     });
 

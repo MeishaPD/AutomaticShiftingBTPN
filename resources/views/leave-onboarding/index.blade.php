@@ -26,7 +26,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('request-shifting.store') }}" method="POST" class="space-y-4">
+                <form action="{{ route('employee.leave.store') }}" method="POST" class="space-y-4">
                     @csrf
                     <div class="space-y-2">
                         <label for="nik" class="block text-white text-sm font-semibold tracking-wide">
@@ -38,13 +38,48 @@
                     </div>
 
                     <div class="space-y-2">
-                        <label for="shift_date" class="block text-white text-sm font-semibold tracking-wide">
-                            Tanggal
+                        <label for="employee_name" class="block text-white text-sm font-semibold tracking-wide">
+                            Nama Karyawan
                         </label>
-                        <input type="date" id="shift_date" name="shift_date"
-                            value="{{ old('shift_date', now()->format('Y-m-d')) }}" min="{{ now()->format('Y-m-d') }}"
+                        <input type="text" id="employee_name" name="employee_name" value="{{ old('employee_name') }}"
+                            class="w-full px-2 py-3 bg-white bg-opacity-90 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200"
+                            placeholder="Masukkan nama karyawan" required>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="leave_start" class="block text-white text-sm font-semibold tracking-wide">
+                            Tanggal Cuti Dimulai
+                        </label>
+                        <input type="date" id="leave_start" name="leave_start"
+                            value="{{ old('leave_start', now()->format('Y-m-d')) }}" min="{{ now()->format('Y-m-d') }}"
                             class="w-full px-2 py-3 bg-white bg-opacity-90 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200"
                             required>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="leave_end" class="block text-white text-sm font-semibold tracking-wide">
+                            Tanggal Cuti Berakhir
+                        </label>
+                        <input type="date" id="leave_end" name="leave_end"
+                            value="{{ old('leave_end', now()->format('Y-m-d')) }}" min="{{ now()->format('Y-m-d') }}"
+                            class="w-full px-2 py-3 bg-white bg-opacity-90 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200"
+                            required>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="leave_type" class="block text-white text-sm font-semibold tracking-wide">
+                            Tipe Cuti
+                        </label>
+                        <select
+                            id="leave_type"
+                            name="leave_type"
+                            class="w-full px-2 py-3 bg-white bg-opacity-90 border-0 rounded-lg text-gray-800 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200"
+                            required
+                        >
+                            <option value="">Pilih tipe cuti</option>
+                            <option value="yearly" {{ old('leave_type') === 'yearly' ? 'selected' : '' }}>Tahunan</option>
+                            <option value="special" {{ old('leave_type') === 'special' ? 'selected' : '' }}>Khusus</option>
+                        </select>
                     </div>
 
                     <div class="pt-2">
