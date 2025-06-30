@@ -18,9 +18,29 @@ class ShiftReportController extends Controller
         $endDate        = $request->get('end_date', Carbon::today()->addDays(30)->format('Y-m-d'));
         $onlyWithShifts = $request->boolean('only_with_shifts');
 
-        $query = Employee::with(['shifts' => function ($query) use ($startDate, $endDate) {
-            $query->whereBetween('shift_date', [$startDate, $endDate]);
-        }]);
+        $startYear = Carbon::parse($startDate)->year;
+        $endYear = Carbon::parse($endDate)->year;
+
+        $query = Employee::with([
+            'shifts' => function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('shift_date', [$startDate, $endDate]);
+            },
+            'leaves' => function ($query) use ($startYear, $endYear) {
+                $query->where(function ($q) use ($startYear, $endYear) {
+                    $yearStart = Carbon::create($startYear, 1, 1)->format('Y-m-d');
+                    $yearEnd = Carbon::create($endYear, 12, 31)->format('Y-m-d');
+                    
+                    $q->where(function ($dateQuery) use ($yearStart, $yearEnd) {
+                        $dateQuery->whereBetween('leave_start', [$yearStart, $yearEnd])
+                                 ->orWhereBetween('leave_end', [$yearStart, $yearEnd])
+                                 ->orWhere(function ($spanQuery) use ($yearStart, $yearEnd) {
+                                     $spanQuery->where('leave_start', '<=', $yearStart)
+                                              ->where('leave_end', '>=', $yearEnd);
+                                 });
+                    });
+                });
+            }
+        ]);
 
         if ($nik) {
             $query->where('nik', 'like', "%{$nik}%");
@@ -35,15 +55,43 @@ class ShiftReportController extends Controller
             $wfoCount    = $employee->shifts->where('type', 'WFO')->count();
             $totalShifts = $wfhCount + $wfoCount;
 
+            $totalYearlyLeaveDays = 0;
+            $totalSpecialLeaveDays = 0;
+
+            foreach ($employee->leaves as $leave) {
+                $leaveStart = Carbon::parse($leave->leave_start);
+                $leaveEnd = Carbon::parse($leave->leave_end);
+                
+                $yearStart = Carbon::create($startYear, 1, 1);
+                $yearEnd = Carbon::create($endYear, 12, 31);
+                
+                $overlapStart = $leaveStart->max($yearStart);
+                $overlapEnd = $leaveEnd->min($yearEnd);
+                
+                if ($overlapStart <= $overlapEnd) {
+                    $leaveDuration = $overlapStart->diffInDays($overlapEnd) + 1;
+                    
+                    $leaveType = is_object($leave->type) ? $leave->type->value : $leave->type;
+                    
+                    if ($leaveType === 'yearly') {
+                        $totalYearlyLeaveDays += $leaveDuration;
+                    } elseif ($leaveType === 'special') {
+                        $totalSpecialLeaveDays += $leaveDuration;
+                    }
+                }
+            }
+
             if (! $onlyWithShifts || $totalShifts > 0) {
                 $shiftRows->push([
-                    'employee_id' => $employee->id,
-                    'nik'         => $employee->nik,
-                    'name'        => $employee->name,
-                    'gender'      => $employee->gender,
-                    'location'    => $employee->location,
-                    'total_wfh'   => $wfhCount,
-                    'total_wfo'   => $wfoCount,
+                    'employee_id'         => $employee->id,
+                    'nik'                 => $employee->nik,
+                    'name'                => $employee->name,
+                    'gender'              => $employee->gender,
+                    'location'            => $employee->location,
+                    'total_wfh'           => $wfhCount,
+                    'total_wfo'           => $wfoCount,
+                    'total_yearly_leave'  => $totalYearlyLeaveDays,
+                    'total_special_leave' => $totalSpecialLeaveDays,
                 ]);
             }
         }
