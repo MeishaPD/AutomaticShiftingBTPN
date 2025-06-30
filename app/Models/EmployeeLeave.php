@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use App\Enums\LeaveType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -13,6 +14,7 @@ class EmployeeLeave extends Model
     ];
 
     protected $casts = [
+        'type'        => LeaveType::class,
         'leave_start' => 'date',
         'leave_end'   => 'date',
     ];
