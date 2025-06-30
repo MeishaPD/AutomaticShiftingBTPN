@@ -9,8 +9,9 @@ class EmployeeLeave extends Model
 {
     protected $fillable = [
         'employee_id',
-        'leavet_start',
-        'leavet_end',
+        'type',
+        'leave_start',
+        'leave_end',
     ];
 
     protected $casts = [
