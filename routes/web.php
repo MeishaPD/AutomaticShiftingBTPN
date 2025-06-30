@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeeLeaveController;
 use App\Http\Controllers\EmployeeOnboardingController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RequestShiftingController;
@@ -25,6 +26,10 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('employee-onboarding')->group(function () {
             Route::get('/', [EmployeeOnboardingController::class, 'index'])->name('employee.onboarding');
+        });
+
+        Route::prefix('leave-onboarding')->group(function () {
+            Route::get('/', [EmployeeLeaveController::class, 'create'])->name('employee.leave');
         });
     });
 
