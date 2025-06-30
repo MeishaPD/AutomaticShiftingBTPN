@@ -1,4 +1,4 @@
-@props(['shiftRows'])
+@props(['leaveRows'])
 
 <div class="overflow-x-auto">
     <table class="min-w-full border-collapse border border-gray-300">
@@ -17,25 +17,24 @@
                     Lokasi Kerja
                 </th>
                 <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-white uppercase tracking-wider border border-gray-300 bg-green-500">
-                    Total WFH
+                    Tanggal Mulai
                 </th>
                 <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-white uppercase tracking-wider border border-gray-300 bg-green-500">
-                    Total WFO
+                    Tanggal Selesai
                 </th>
                 <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-white uppercase tracking-wider border border-gray-300 bg-green-500">
-                    Total Shift
-                </th>
-                <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-white uppercase tracking-wider border border-gray-300 bg-green-500">
-                    Total Cuti Tahunan
-                </th>
-                <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-white uppercase tracking-wider border border-gray-300 bg-green-500">
-                    Total Cuti Khusus
+                    Tipe Cuti
                 </th>
             </tr>
         </thead>
         <tbody>
-            @forelse($shiftRows as $row)
-                <tr class="hover:bg-gray-50">
+            @forelse($leaveRows as $row)
+
+                @php
+                    $typeValue = $row['type'] ? (is_object($row['type']) ? $row['type']->value : $row['type']) : null;
+                @endphp
+
+                <tr class="hover:bg-gray-50 {{ !$row['has_leave'] ? 'bg-gray-100' : '' }}">
                     <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border border-gray-300">
                         {{ $row['nik'] }}
                     </td>
@@ -49,24 +48,18 @@
                         {{ is_object($row['location']) ? $row['location']->value : $row['location'] }}
                     </td>
                     <td class="px-4 py-2 text-center text-sm border border-gray-300">
-                        {{ $row['total_wfh'] }}
+                        {{ $row['leave_start'] ?? '-' }}
                     </td>
                     <td class="px-4 py-2 text-center text-sm border border-gray-300">
-                        {{ $row['total_wfo'] }}
+                        {{ $row['leave_end'] ?? '-' }}
                     </td>
                     <td class="px-4 py-2 text-center text-sm border border-gray-300">
-                        {{ $row['total_wfh'] + $row['total_wfo'] }}
-                    </td>
-                    <td class="px-4 py-2 text-center text-sm border border-gray-300">
-                        {{ $row['total_yearly_leave'] }}
-                    </td>
-                    <td class="px-4 py-2 text-center text-sm border border-gray-300">
-                        {{ $row['total_special_leave'] }}
+                        {{ $typeValue === 'yearly' ? 'Tahunan' : ($typeValue === 'special' ? 'Khusus' : '-') }}
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8" class="px-4 py-2 text-center text-sm text-gray-500 border border-gray-300">
+                    <td colspan="7" class="px-4 py-2 text-center text-sm text-gray-500 border border-gray-300">
                         Tidak ada data yang ditemukan
                     </td>
                 </tr>
@@ -76,5 +69,5 @@
 </div>
 
 <div class="py-3 border-t border-gray-200">
-    {{ $shiftRows->appends(request()->query())->links() }}
+    {{ $leaveRows->appends(request()->query())->links() }}
 </div>

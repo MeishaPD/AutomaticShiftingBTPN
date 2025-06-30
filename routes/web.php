@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
             Route::post('/remove', [EmployeeOnboardingController::class, 'remove'])->name('employee.remove');
         });
 
+        Route::get('/leave-report', [EmployeeLeaveController::class, 'report'])->name('employee.leave.report');
+
         Route::prefix('shift')->group(function () {
             Route::get('/report', [ShiftReportController::class, 'index'])->name('shift-report.index');
             Route::get('/history', [ShiftHistoryController::class, 'index'])->name('shift-history.index');
